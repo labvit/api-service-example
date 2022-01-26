@@ -1,0 +1,16 @@
+upstream backend {
+    server backend:5000;
+}
+
+server {
+    listen       80;
+    server_name  localhost;
+    location / {
+        proxy_pass   http://backend;
+        proxy_buffering off;
+        proxy_buffer_size 16k;
+        proxy_busy_buffers_size 24k;
+        proxy_buffers 64 4k;
+    }
+}
+
